@@ -1,0 +1,17 @@
+:root {
+    --r-heading1-size: 2em; /* default 2.5em */
+    --r-heading2-size: 1.4em; /* default 1.6em */
+    --r-heading3-size: 1.2em; /* default 1.3em */
+    --r-heading4-size: 1em; /* default 1em */
+    --r-main-font-size: 38px; /* default 42px */
+}
+
+.reveal::after {
+    font-size: 0.6em;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    content: '𝕏 itaysk';
+    position:absolute;
+    bottom: 10px;
+    right: 10px;
+}

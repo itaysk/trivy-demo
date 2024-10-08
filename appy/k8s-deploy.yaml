@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: appy-backend
+spec:
+  selector:
+    app: appy
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appy-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appy
+  template:
+    metadata:
+      labels:
+        app: appy
+    spec:
+      containers:
+      - name: appy-frontend
+        image: appy-frontend:1
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: BACKEND_URL
+          value: "http://appy-backend"
+        securityContext:
+          readOnlyRootFilesystem: true
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appy-frontend
+spec:
+  selector:
+    app: appy
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appy-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appy
+  template:
+    metadata:
+      labels:
+        app: appy
+    spec:
+      containers:
+      - name: appy-backend
+        image: appy-backend:1
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent

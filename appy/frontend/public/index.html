@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping API</title>
+</head>
+<body>
+    <h1>Ping API</h1>
+    <button id="pingButton">Ping</button>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('pingButton').addEventListener('click', function() {
+            fetch('/ping')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.message;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = 'Error: ' + error;
+                });
+        });
+    </script>
+</body>
+</html>
